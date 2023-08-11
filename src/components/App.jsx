@@ -1,15 +1,18 @@
 import { NavLink, Route, Routes } from "react-router-dom";
+import Home from "pages/Home";
+import MovieDetails from '../components/MovieDetails';
 
 export const App = () => {
   return (
     <div>
       <nav>
-        <NavLink to="/" >Home Page</NavLink>
+        <NavLink to="/" >Home</NavLink>
         <NavLink to="/movies">Movies</NavLink>
       </nav>
       <Routes>
-        <Route path="/" element={<div>Home Page</div>} />
-         <Route path="/movies" element={<div>Movies</div>} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/movies" element={<div>Movies</div>} />
+        <Route path="/movies/:movieId" element={<MovieDetails/>} />
       </Routes>
     </div>
       
