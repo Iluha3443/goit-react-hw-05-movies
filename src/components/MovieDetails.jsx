@@ -3,10 +3,11 @@ import { movieDetails, searchImg } from "../API";
 import { useEffect, useState } from "react";
  
 
-const MovieDetails = ({moviesBest}) => {
+const MovieDetails = () => {
     const { movieId } = useParams();
     const [movie, setMovie] = useState([]);
     const [image, setImage] = useState('');
+    
   
 
     useEffect(() => {
@@ -45,7 +46,7 @@ const MovieDetails = ({moviesBest}) => {
                 }
             </div>
             <li>
-                <Link to="cast" >Cast</Link>
+                  <Link to="cast">Cast</Link>
             </li>
             <li>
                 <Link to="reviews">Reviews</Link>
