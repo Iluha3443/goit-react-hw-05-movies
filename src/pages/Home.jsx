@@ -1,29 +1,32 @@
 import { useEffect, useState } from 'react';
-import requestMovies from '../API';
+import {getTranding} from '../API';
 import MovieDetails from '../components/MovieDetails';
+import { Link, useParams } from "react-router-dom";
 
 
 const Home = () => {
     const [movies, setMovies] = useState([]);
-
-   
+    
     useEffect(() => {
         bestMovies()
-    }, [])
+    }, []);
 
     async function bestMovies() {
-        const movies = await requestMovies();
+        const movies = await getTranding();
         const bestFilms = movies.data.results;
         setMovies(bestFilms);
-    }
-    console.log(movies)
+    };
+    
     
     return (
         <div>
             <h1>Trending today</h1>
             <ul>
-                {movies.map((film) => (
-                    <MovieDetails key={film.id} film={film} />
+                {movies.map((mov) => (
+                    <li key={mov.id}>
+                        <Link to={`movies/${mov.id}`}>{mov.title}</Link>
+                    </li>
+                    
                 ))}
             </ul>
         </div>
