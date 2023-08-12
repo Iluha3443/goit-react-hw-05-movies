@@ -11,7 +11,7 @@ const Movies = () => {
         search()
     }, [movieName]);
    
-    const search = () => {
+    function search ()  {
         if (movieName !== '') {
             renderMovies(movieName);
         };
