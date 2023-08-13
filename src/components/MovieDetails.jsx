@@ -20,7 +20,7 @@ const MovieDetails = () => {
             const img = await searchImg(movie.poster_path);
             setImage(img);
         }
-    }, [movieId, movie]);
+    }, [ movie]);
 
     useEffect(() => {
         infoMovies();
