@@ -8,8 +8,8 @@ const Movies = () => {
     const [movies, setMovies] = useState([]);
     
     useEffect(() => {
-        search()
-    }, [search]);
+        search
+    }, []);
    
     function search ()  {
         if (movieName !== '') {
