@@ -12,13 +12,13 @@ const MovieDetails = () => {
 
     useEffect(() => {
         infoMovies();
-    }, [infoMovies]);
+    }, []);
 
     useEffect(() => {
            if (movie && movie.poster_path) {
         searchImage();
     }
-    }, [movie,searchImage])
+    }, [])
     
     async function searchImage() {
         const img = await searchImg(movie.poster_path);
