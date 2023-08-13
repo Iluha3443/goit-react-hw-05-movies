@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback  } from "react";
 import { searchMovies } from '../API';
 import { Link } from "react-router-dom";
 
