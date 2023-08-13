@@ -7,15 +7,21 @@ const Movies = () => {
     const [movieName, setMovieName] = useState('');
     const [movies, setMovies] = useState([]);
     
-    useEffect(() => {
-        search
-    }, []);
-   
-    function search ()  {
+   const search = useCallback(() => {
         if (movieName !== '') {
             renderMovies(movieName);
         };
-    }
+    }, [movieName]);
+
+    useEffect(() => {
+        search();
+    }, [search]);
+   
+    // function search ()  {
+    //     if (movieName !== '') {
+    //         renderMovies(movieName);
+    //     };
+    // }
     
     async function renderMovies (name) {
         const result = await searchMovies(name);
