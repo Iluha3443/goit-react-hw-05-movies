@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {getTranding} from '../API';
-import MovieDetails from '../components/MovieDetails';
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const Home = () => {

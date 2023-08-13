@@ -1,48 +1,29 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {movieCredits,searchImg} from "../API"
+import {getActorsFilm} from "../API"
 
-const Cast = () => {
-    const { movieId } = useParams();
-    const [cust, setCust] = useState([]);
-    const [img, setImg] = useState('');
-   
+const imgLink = 'https://image.tmdb.org/t/p/w200';
     
-    useEffect(() => {
-        castMovies()
-    }, []);
+function Cast() {
+    const params = useParams()
+    const [cast, setCast] = useState([])
 
     useEffect(() => {
-        if (cust.length !== 0) {
-            imgMovies();
-        }
-    }, [cust]);
+        getActorsFilm(params.movieId).then((data) => {
+            setCast(data.cast)
+        }).catch(err => console.error(err));
+    }, [params.movieId]);
 
-     
-
-
-    async function imgMovies() {
-       const imagePaths = cust.map(res => res.profile_path);
-    const imgPromises = imagePaths.map(async path => await searchImg(path));
-        const imgResults = await Promise.all(imgPromises);
-    setImg(imgResults);
-    }
-
-   async function castMovies() {
-       const result = await movieCredits(movieId);
-       const resultCust = result.data.cast;
-
-       setCust(resultCust);
-    //    console.log(resultCust)
-    }
-
-    return (
-        <div>{cust.map(cust => (
-            
-             <li key={cust.id}>{cust.original_name}</li>
-        ))}</div>
-)
+    return (cast.length > 0 ? <div>
+        {cast.map((actor) => {
+            return <div key={actor.id}>
+                {actor.profile_path
+                    ? <img src={`${imgLink}${actor.profile_path}`} alt={actor.original_name} />
+                    : <div>Sorry we don't have this picture</div>}
+                <div>{actor.original_name}</div>
+                <div>role: {actor.character}</div>
+        </div>})}
+    </div> : <div>We don't have any cast information for this movie</div>);
 }
 
 export default Cast;
- {/* <img src={cust.profile_path} alt="" /> */}
