@@ -9,7 +9,7 @@ const Movies = () => {
     
     useEffect(() => {
         search()
-    }, [movieName]);
+    }, []);
    
     function search ()  {
         if (movieName !== '') {
