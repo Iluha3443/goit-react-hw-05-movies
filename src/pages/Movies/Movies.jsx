@@ -1,11 +1,12 @@
-import { useEffect, useState,useCallback  } from "react";
-import { searchMovies } from '../API';
-import { Link } from "react-router-dom";
-
+import { useEffect, useState,useCallback } from "react";
+import { searchMovies } from '../../API';
+import { Link, useLocation} from "react-router-dom";
+import {ItemParent,Form,InputSearch,ButtonSearch,ListMoviesBest,ListMoviesChildren} from './Movies.styled'
 
 const Movies = () => {
     const [movieName, setMovieName] = useState('');
     const [movies, setMovies] = useState([]);
+    const location = useLocation()
     
    const search = useCallback(() => {
         if (movieName !== '') {
@@ -16,12 +17,6 @@ const Movies = () => {
     useEffect(() => {
         search();
     }, [search]);
-   
-    // function search ()  {
-    //     if (movieName !== '') {
-    //         renderMovies(movieName);
-    //     };
-    // }
     
     async function renderMovies (name) {
         const result = await searchMovies(name);
@@ -35,27 +30,26 @@ const Movies = () => {
         setMovieName(nameMovies)
     };
     
-
     return (
         <>
-    <div>
-    <form onSubmit={handleFormSubmit}>
+    <ItemParent>
+    <Form onSubmit={handleFormSubmit}>
         <label htmlFor="">
-            <input type="text" name="input" />
+            <InputSearch type="text" name="input" />
         </label>
-        <button type="submit">Search</button>
-            </form>
-            </div>
+        <ButtonSearch type="submit">Search</ButtonSearch>
+            </Form>
+            </ItemParent>
 
             <div>
-                <ul>
+                <ListMoviesBest>
                     {movies.map(mov => (
-                        <li key={mov.id}>
-                        <Link to={`${mov.id}`}>{mov.title}</Link>
-                        </li>
+                        <ListMoviesChildren key={mov.id}>
+                        <Link to={`${mov.id}`} state={{from: location}}>{mov.title}</Link>
+                        </ListMoviesChildren>
                         
                     ))}
-                </ul>
+                </ListMoviesBest>
             </div>
             </>
 );

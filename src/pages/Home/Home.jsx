@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import {getTranding} from '../API';
+import {getTranding} from '../../API';
 import { Link } from "react-router-dom";
-
+import {TitleTrending,ListMoviesBest,ListMoviesChildren} from './Home.styled'
 
 const Home = () => {
     const [movies, setMovies] = useState([]);
@@ -19,15 +19,15 @@ const Home = () => {
     
     return (
         <div>
-            <h1>Trending today</h1>
-            <ul>
+            <TitleTrending>Trending today</TitleTrending>
+            <ListMoviesBest>
                 {movies.map((mov) => (
-                    <li key={mov.id}>
+                    <ListMoviesChildren key={mov.id}>
                         <Link to={`movies/${mov.id}`}>{mov.title}</Link>
-                    </li>
+                    </ListMoviesChildren>
                     
                 ))}
-            </ul>
+            </ListMoviesBest>
         </div>
     );
 };
