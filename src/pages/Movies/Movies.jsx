@@ -10,7 +10,7 @@ const Movies = () => {
     
     const search = useCallback(() => {
         const searchName = searchParams.get('movie');
-       if (searchName !== '') {
+       if (searchName !== null) {
             renderMovies(searchName);
         };
     }, [searchParams]);
