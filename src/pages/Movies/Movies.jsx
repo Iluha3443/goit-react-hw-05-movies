@@ -1,39 +1,39 @@
 import { useEffect, useState,useCallback } from "react";
 import { searchMovies } from '../../API';
-import { Link, useLocation} from "react-router-dom";
+import { Link, useLocation, useSearchParams} from "react-router-dom";
 import {ItemParent,Form,InputSearch,ButtonSearch,ListMoviesBest,ListMoviesChildren} from './Movies.styled'
 
 const Movies = () => {
-    const [movieName, setMovieName] = useState('');
     const [movies, setMovies] = useState([]);
-    const location = useLocation()
+    const location = useLocation();
+    const [searchParams, setSearchParams] = useSearchParams();
     
-   const search = useCallback(() => {
-        if (movieName !== '') {
-            renderMovies(movieName);
+    const search = useCallback(() => {
+        const searchName = searchParams.get('movie');
+       if (searchName !== '') {
+            renderMovies(searchName);
         };
-    }, [movieName]);
+    }, [searchParams]);
 
     useEffect(() => {
         search();
     }, [search]);
     
-    async function renderMovies (name) {
+    async function renderMovies(name) {
         const result = await searchMovies(name);
         const resultsSearch = result.data.results;
         setMovies(resultsSearch)
     }
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        const nameMovies = e.currentTarget.input.value;
-        setMovieName(nameMovies)
+      const handleFormSubmit = (evt) => {
+          evt.preventDefault();
+          evt.target.value !== '' ? setSearchParams({movie: evt.currentTarget.input.value}) : setSearchParams({});
     };
     
     return (
         <>
     <ItemParent>
-    <Form onSubmit={handleFormSubmit}>
+    <Form onSubmit={handleFormSubmit} >
         <label htmlFor="">
             <InputSearch type="text" name="input" />
         </label>
@@ -47,7 +47,6 @@ const Movies = () => {
                         <ListMoviesChildren key={mov.id}>
                         <Link to={`${mov.id}`} state={{from: location}}>{mov.title}</Link>
                         </ListMoviesChildren>
-                        
                     ))}
                 </ListMoviesBest>
             </div>
@@ -56,3 +55,9 @@ const Movies = () => {
 }
 
 export default Movies;
+
+
+
+
+
+
